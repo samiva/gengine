@@ -1,0 +1,10 @@
+Material
+    - shader
+    - shaderinput
+    - describe surface properties
+    - no light positions or object transforms
+
+
+ex. ColorMaterial
+    - colorshader
+    - set color to be used by the shader

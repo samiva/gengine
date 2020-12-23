@@ -1,0 +1,6 @@
+GL CALLBACK:  type = 0x8251, severity = 0x826b, message = Buffer detailed info: Buffer object 1 (bound to NONE, usage hint is GL_STATIC_DRAW) will use VIDEO memory as the source for buffer object operations.
+GL CALLBACK:  type = 0x8251, severity = 0x826b, message = Buffer detailed info: Buffer object 2 (bound to NONE, usage hint is GL_STATIC_DRAW) will use VIDEO memory as the source for buffer object operations.
+GL CALLBACK:  type = 0x8251, severity = 0x826b, message = Buffer detailed info: Buffer object 3 (bound to NONE, usage hint is GL_STATIC_DRAW) will use VIDEO memory as the source for buffer object operations.
+GL CALLBACK:  type = 0x8251, severity = 0x826b, message = Buffer detailed info: Buffer object 4 (bound to NONE, usage hint is GL_STATIC_DRAW) will use VIDEO memory as the source for buffer object operations.
+GL CALLBACK:  type = 0x8251, severity = 0x826b, message = Buffer detailed info: Buffer object 5 (bound to NONE, usage hint is GL_STATIC_DRAW) will use VIDEO memory as the source for buffer object operations.
+GL CALLBACK:  type = 0x8251, severity = 0x826b, message = Buffer detailed info: Buffer object 6 (bound to NONE, usage hint is GL_STATIC_DRAW) will use VIDEO memory as the source for buffer object operations.
