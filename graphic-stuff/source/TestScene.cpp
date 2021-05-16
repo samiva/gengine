@@ -33,8 +33,7 @@ bool TestScene::init()
 	auto ib = IndexBuffer::Create();
 	ib->setData(static_cast<void*>(indices), sizeof(indices), sizeof(indices) / sizeof(indices[0]));
 	vaTri->addIndexBuffer(ib);
-	m_meshTri = ScopedPtr<Mesh>(Mesh::Create());
-	m_meshTri->setVertexArray(vaTri);
+	
 	
 	
 	m_meshCube = ScopedPtr<Mesh>(ObjLoader("../Res/Model/cube.obj").toMesh());
@@ -52,9 +51,10 @@ bool TestScene::init()
 	ibsq->setData(static_cast<void*>(quadIndices), sizeof(quadIndices), sizeof(quadIndices) / sizeof(quadIndices[0]));
 	m_vaScreenQuad->addIndexBuffer(ibsq);
 
-	m_triangleShader = CreateSharedPtr<ShaderProgram>("Shader");
-	m_screenShader = CreateSharedPtr<ShaderProgram>("QuadShader");
-
+	
+	m_material = CreateScopedPtr<Material>(new ShaderProgram("FlatColorShader"));
+	
+	m_material->setValue("U_color", glm::vec4(1.0f,0.1f,0.1f,1.0f));
 	m_camera = CreateSharedPtr<Camera3D>();
 	RenderCommand::setClearColor(0.0f, 0.0f, .4f, 1.0f);
 	
@@ -75,7 +75,7 @@ void TestScene::update(float dt)
 		* glm::rotate(glm::mat4(1.0f),  glm::radians(m_rotY), glm::vec3(0, 1, 0));
 	RenderCommand::Clear(ClearFlags::Depth|ClearFlags::Color);
 	Renderer3D::BeginScene(*m_camera);
-	Renderer3D::Submit(m_meshCube->getVertexArray(), *m_triangleShader, T);
+	Renderer3D::Submit(m_meshCube->getVertexArray(), *m_material, T);
 	Renderer3D::EndScene();
 }
 

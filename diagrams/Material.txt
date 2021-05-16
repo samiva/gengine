@@ -7,4 +7,7 @@ Material
 
 ex. ColorMaterial
     - colorshader
-    - set color to be used by the shader
+    - set color to be  used by the shader
+
+
+    Will frequent binding of shader programs cause significant overhead?

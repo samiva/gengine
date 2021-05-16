@@ -8,6 +8,7 @@
 #include "Framebuffer.h"
 #include "Camera3D.h"
 #include "Mesh.h"
+#include "Material.h"
 
 class TestScene : public Scene
 {
@@ -21,9 +22,8 @@ public:
 
 private:
 	ScopedPtr<VertexArray>  m_vaScreenQuad;
-	ScopedPtr<Mesh> m_meshTri;
 	ScopedPtr<Mesh> m_meshCube;
-	SharedPtr<ShaderProgram> m_triangleShader, m_screenShader;
+	ScopedPtr<Material> m_material;
 	SharedPtr<Framebuffer> m_fbo;
 	SharedPtr<Camera3D> m_camera;
 

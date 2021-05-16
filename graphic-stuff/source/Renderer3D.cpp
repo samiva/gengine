@@ -36,7 +36,9 @@ void Renderer3D::Submit(VertexArray* va, Material& mat, glm::mat4& T)
 {
 	auto mvp = s_data.viewProjectionMatrix*T;
 	mat.bind();
-	
+	mat.setValue("_mvp", mvp);
+	va->bind();
+	RenderCommand::Draw(va);
 }
 void Renderer3D::OnResize(uint32_t width, uint32_t height)
 {

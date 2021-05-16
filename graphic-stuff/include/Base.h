@@ -1,5 +1,7 @@
 #ifndef __BASE_h__
 #define __BASE_h__
+
+
 #include <memory>
 
 template<typename T>
