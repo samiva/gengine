@@ -22,6 +22,13 @@ void ObjLoader::loadObj(std::string path)
 			char c2;
 			stream.get(c2);
 			switch (c2) {
+			case 't':
+			{
+				// Texture: object has textures
+				m_hasTexture = true;
+				std::getline(stream, line);
+				parseTexturePosition(line);
+			}
 			case 'n':
 			{
 				// normal
@@ -48,7 +55,7 @@ void ObjLoader::loadObj(std::string path)
 		{
 			// Indices for face
 			//stream.putback(c);
-			std::getline(stream, line);			
+			std::getline(stream, line);
 			parseFaceIndices(line);
 		}
 		break;
@@ -65,14 +72,14 @@ Mesh* ObjLoader::toMesh()
 
 	// First create model
 	Model m;
-	
-	for (auto& tri: m_triangles) {
+
+	for (auto& tri : m_triangles) {
 		for (auto& ind : tri.indices) {
 			m.addVertex(&m_positions[ind.position - 1], &m_normals[ind.normal - 1]);
 		}
 	}
 	std::vector<float> vertexData;
-	for (size_t i = 0; i < m.positons.size();i++) {
+	for (size_t i = 0; i < m.positons.size(); i++) {
 		// Position
 		vertexData.push_back(m.positons[i].x);
 		vertexData.push_back(m.positons[i].y);
@@ -96,7 +103,7 @@ Mesh* ObjLoader::toMesh()
 	vb->setLayout(l);
 
 	auto ib = IndexBuffer::Create();
-	ib->setData(static_cast<void*>(&indexData[0]),  indexData.size() * sizeof(float), static_cast<unsigned int>(indexData.size()));
+	ib->setData(static_cast<void*>(&indexData[0]), indexData.size() * sizeof(float), static_cast<unsigned int>(indexData.size()));
 	va->addVertexBuffer(vb);
 	va->addIndexBuffer(ib);
 
@@ -115,7 +122,7 @@ void ObjLoader::parseVertexPosition(std::string line)
 	str >> y;
 	str >> z;
 	m_positions.push_back({ x,y,z });
-	
+
 
 	std::cout << "position values: {" << x << ", " << y << ", " << z << "}" << std::endl;
 }
@@ -130,7 +137,7 @@ void ObjLoader::parseVertexNormal(std::string line)
 	str >> y;
 	str >> z;
 	m_normals.push_back({ x,y,z });
-	
+
 
 	std::cout << "normal values: {" << x << ", " << y << ", " << z << "}" << std::endl;
 }
@@ -148,15 +155,29 @@ void ObjLoader::parseFaceIndices(std::string line)
 			ss >> vertInd.position;
 			if (m_hasTexture) {
 				// texture index
+				// Ignore the divider
+				ss.ignore(1);
+				// Read the texture index
+				ss >> vertInd.texture;
 			}
-			else {
-				ss.get();
-				ss.get();
-				ss >> vertInd.normal;
-				m_indices.push_back(vertInd);
-				t.addVertexIndex(vertInd);
-			}
+			
+			ss.ignore(1);
+			ss >> vertInd.normal;
+			m_indices.push_back(vertInd);
+			t.addVertexIndex(vertInd);
+
 		}
 	}
 	m_triangles.push_back(t);
+}
+
+void ObjLoader::parseTexturePosition(std::string line)
+{
+	std::cout << line << std::endl;
+	float x, y;
+
+	std::stringstream ss(line);
+	ss >> x;
+	ss >> y;
+	m_texturePositions.push_back({ x, y });
 }

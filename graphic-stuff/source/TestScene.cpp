@@ -36,7 +36,7 @@ bool TestScene::init()
 	
 	
 	
-	m_meshCube = ScopedPtr<Mesh>(ObjLoader("../Res/Model/cube.obj").toMesh());
+	m_meshCube = ScopedPtr<Mesh>(ObjLoader("../Res/Models/cube.obj").toMesh());
 
 	m_vaScreenQuad = ScopedPtr<VertexArray>( VertexArray::Create());
 	auto vbsq = VertexBuffer::Create();
