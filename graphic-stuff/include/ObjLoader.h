@@ -25,6 +25,7 @@ struct Vertex {
 struct VertexIndex {
 	unsigned int position;
 	unsigned int normal;
+	unsigned int texture;
 };
 
 struct Face {
@@ -81,8 +82,10 @@ private:
 	bool m_hasNormals = false;
 	std::vector<glm::vec3> m_positions;
 	std::vector<glm::vec3> m_normals;
+	std::vector<glm::vec2> m_texturePositions;
 	std::vector<VertexIndex> m_indices;
 	std::vector<Face> m_triangles;
 
+	void parseTexturePosition(std::string line);
 };
 #endif // __OBJLOADER_h__
