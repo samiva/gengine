@@ -1,7 +1,7 @@
 #include "pch.h"
 #include "ObjLoader.h"
+#include "Logger.h"
 #include <sstream>
-
 ObjLoader::ObjLoader(std::string path)
 {
 	loadObj(path);
@@ -10,59 +10,66 @@ ObjLoader::ObjLoader(std::string path)
 void ObjLoader::loadObj(std::string path)
 {
 	std::ifstream stream(path, std::ios_base::binary);
-	std::string line;
-	while (!stream.eof()) {
-		char c;
-		stream.get(c);
-		if (stream.eof())
-			break;
-		switch (c) {
-		case 'v':
-		{
-			char c2;
-			stream.get(c2);
-			switch (c2) {
-			case 't':
+	if(!stream.fail())
+	{
+
+		std::string line;
+		while (!stream.eof()) {
+			char c;
+			stream.get(c);
+			if (stream.eof())
+				break;
+			switch (c) {
+			case 'v':
 			{
-				// Texture: object has textures
-				m_hasTexture = true;
-				std::getline(stream, line);
-				parseTexturePosition(line);
+				char c2;
+				stream.get(c2);
+				switch (c2) {
+				case 't':
+				{
+					// Texture: object has textures
+					m_hasTexture = true;
+					std::getline(stream, line);
+					parseTexturePosition(line);
+				}
+				case 'n':
+				{
+					// normal
+					//stream.putback(c2);
+					//stream.putback(c);
+					m_hasNormals = true;
+					std::getline(stream, line);
+					parseVertexNormal(line);
+				}
+				break;
+				case ' ':
+				{
+					// position
+					//stream.putback(c2);
+					//stream.putback(c);
+					std::getline(stream, line);
+					parseVertexPosition(line);
+				}
+				break;
+				}
 			}
-			case 'n':
+			break;
+			case 'f':
 			{
-				// normal
-				//stream.putback(c2);
+				// Indices for face
 				//stream.putback(c);
-				m_hasNormals = true;
 				std::getline(stream, line);
-				parseVertexNormal(line);
+				parseFaceIndices(line);
 			}
 			break;
-			case ' ':
-			{
-				// position
-				//stream.putback(c2);
-				//stream.putback(c);
-				std::getline(stream, line);
-				parseVertexPosition(line);
-			}
-			break;
+			default:
+				stream.ignore(256, '\n');
+				break;
 			}
 		}
-		break;
-		case 'f':
-		{
-			// Indices for face
-			//stream.putback(c);
-			std::getline(stream, line);
-			parseFaceIndices(line);
-		}
-		break;
-		default:
-			stream.ignore(256, '\n');
-			break;
-		}
+	}
+	else {
+		Logger::WriteErrorString("Could not open file");
 	}
 
 }
@@ -159,6 +166,9 @@ void ObjLoader::parseFaceIndices(std::string line)
 				ss.ignore(1);
 				// Read the texture index
 				ss >> vertInd.texture;
+			}
+			else {
+				ss.ignore(1);
 			}
 			
 			ss.ignore(1);
