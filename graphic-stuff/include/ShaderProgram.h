@@ -28,6 +28,12 @@ public:
 	void bind();
 	void unbind();
 
+	inline const std::string &modelViewProjectionMatrix() { return m_modelviewProjection; }
+	inline const std::string &modelMatrix() { return m_model; }
+	inline const std::string &viewMatrix() { return m_view; }
+	inline const std::string &color() { return m_color; }
+	inline const std::string &lightPosition() { return m_lightPosition; }
+	
 	void setUniformMatrix(const std::string& name, const glm::mat4& mat);
 	void setUniformVector(const std::string& name, const glm::vec4& vec);
 	void setUniformVector(const std::string& name, const glm::vec3& vec);
@@ -36,6 +42,11 @@ public:
 	GLint getUniformLocation(const std::string& name);
 private:	
 	GLuint m_program;
+	std::string m_modelviewProjection;
+	std::string m_model;
+	std::string m_view;
+	std::string m_color;
+	std::string m_lightPosition;
 
 
 	GLuint createShader(const std::string& src, GLenum type);
