@@ -45,7 +45,7 @@ bool Application::init()
 	SDL_VERSION(&vers);
 	printf("Compiled version %d.%d.%d\n", vers.major, vers.minor, vers.patch);
 
-	if (SDL_Init(SDL_VIDEO_OPENGL | SDL_INIT_EVENTS) != 0) {
+	if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_EVENTS) != 0) {
 		std::cerr << "Failed to initialize SDL" << std::endl;
 		return false;
 	}

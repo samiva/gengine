@@ -26,8 +26,8 @@ bool TestScene::init()
 	auto vb = VertexBuffer::Create();
 	vb->setData(static_cast<void*>(triangle), sizeof(triangle));
 	Layout layout;
-	layout.addMember<float>(3);
-	layout.addMember<float>(3);
+	addLayoutMember<float>(layout, 3);
+	addLayoutMember<float>(layout, 3);
 	vb->setLayout(layout);
 	vaTri->addVertexBuffer(vb);
 	auto ib = IndexBuffer::Create();
@@ -41,8 +41,8 @@ bool TestScene::init()
 
 	vbsq->setData(static_cast<void*>(quad), sizeof(quad));
 	Layout l;
-	l.addMember<float>(3);
-	l.addMember<float>(2);
+	addLayoutMember<float>(l, 3);
+	addLayoutMember<float>(l, 3);
 	vbsq->setLayout(l);
 
 	auto ibsq = IndexBuffer::Create();

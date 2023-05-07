@@ -109,8 +109,8 @@ Mesh* ObjLoader::toMesh()
 	vb->setData(static_cast<void*>(&vertexData[0]), vertexData.size() * sizeof(float));
 
 	Layout l;
-	l.addMember<float>(3);
-	l.addMember<float>(3);
+	addLayoutMember<float>(l, 3);
+	addLayoutMember<float>(l, 3);
 	vb->setLayout(l);
 
 	auto ib = IndexBuffer::Create();

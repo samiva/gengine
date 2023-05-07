@@ -1,6 +1,7 @@
 cmake_minimum_required(VERSION 3.11)
 project(gengine)
 
+set(CMAKE_CXX_STANDARD 17)
 # set(GENGINE_SOURCE ${CMAKE_SOURCE_DIR}/graphic-stuff/source)
 # set(GENGINE_INCLUDES ${CMAKE_SOURCE_DIR}/graphic-suff/include)
 set(SDL2_INCLUDE ${CMAKE_SOURCE_DIR}/deps/SDL2-2.0.12/include)

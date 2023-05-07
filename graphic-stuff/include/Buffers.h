@@ -25,13 +25,10 @@ public:
 	}
 
 public:
-	template<typename T>
-	void addMember(int count);
-
-	template<>
-	void addMember<float>(int count) {
-		m_stride += count * sizeof(float);
-		m_members.push_back({ indexCount, count, GL_FLOAT, GL_FALSE });
+	
+	void addMember(int typeSize, int count, GLenum type) {
+		m_stride += count * typeSize;
+		m_members.push_back({ indexCount, count, type, GL_FALSE });
 		indexCount++;
 	}
 
@@ -44,6 +41,14 @@ private:
 	std::vector<LayoutMember> m_members;
 
 };
+
+template<typename T> 
+void addLayoutMember(Layout &layout, int count);
+
+template<>
+void addLayoutMember<float>(Layout &layout, int count) {
+	layout.addMember(sizeof(float), count, GL_FLOAT);
+}
 
 class VertexBuffer {
 public:
