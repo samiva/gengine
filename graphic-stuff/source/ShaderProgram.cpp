@@ -1,5 +1,6 @@
 #include "pch.h"
 #include "ShaderProgram.h"
+#include <string.h>
 #include<gtc/type_ptr.hpp>
 
 using glm::value_ptr;
@@ -122,7 +123,7 @@ void ShaderProgram::loadSource(const std::string& path, std::string& src)
 	
 	if (!ifs.is_open()) {
 		char buff[1024];
-		strerror_s(buff,errno);
+		// strerror_s(buff,errno);
 		std::cerr << "Open file fail: " << buff<<std::endl;
 		return;
 	}
