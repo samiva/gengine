@@ -21,6 +21,7 @@
 #include "WindowEvent.h"
 #include "Application.h"
 #include "LoggerAPI.h"
+#include "path_config.h"
 
 //void GLAPIENTRY
 //MessageCallback(GLenum source,
@@ -67,7 +68,7 @@ void onEvent(Event& e) {
 }
 
 int main(int argc, char *argv[]) {
-	
+	std::cout << getResourceDir();
 	//StreamRedirector sredirector;
 	LoggerAPI logger("log.txt");
 	logger.writeInfoString("hello");

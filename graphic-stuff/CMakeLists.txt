@@ -25,12 +25,17 @@ endif()
 
 link_directories(${LIB_DIR})
 
-find_library(glew32 glew32.lib ${LIB_DIR})
-find_library(SDL2 SDL2.lib ${LIB_DIR})
-find_library(SDL2_image SDL2_image.lib ${LIB_DIR})
-find_library(SDL2main SDL2main.lib ${LIB_DIR})
+find_library(glew32 glew32.lib ${GLEW_LIB})
+find_library(SDL2 SDL2.lib ${SDL_LIB})
+find_library(SDL2main SDL2main.lib ${SDLmain_LIB})
+find_library(SDL2_image SDL2_image.lib ${SDL_image_LIB})
 find_library(OpenGL32 opengl32.lib)
 
+set(RESOURCE_DIR ${BIN_DIR}/Res)
+
+configure_file(path_config.h.in ${CMAKE_BINARY_DIR}/generated/path_config.h)
+
+include_directories(${CMAKE_BINARY_DIR}/generated/)
 
 add_executable(graphic-stuff ${SOURCE_FILES})
 target_link_libraries(graphic-stuff glew32 OpenGL32 SDL2 SDL2_image SDL2main)
@@ -38,3 +43,5 @@ target_link_libraries(graphic-stuff glew32 OpenGL32 SDL2 SDL2_image SDL2main)
 set_target_properties(graphic-stuff PROPERTIES RUNTIME_OUTPUT_DIRECTORY ${OUTPUT_DIR})
 
 install(TARGETS graphic-stuff RUNTIME DESTINATION ${OUTPUT_DIR}/_install)
+install(DIRECTORY ${RESOURCE_DIRECTORY} DESTINATION ${BIN_DIR}
+        COMPONENT genginedeps)

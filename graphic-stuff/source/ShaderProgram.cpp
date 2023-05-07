@@ -1,5 +1,6 @@
 #include "pch.h"
 #include "ShaderProgram.h"
+#include "path_config.h"
 #include<gtc/type_ptr.hpp>
 
 using glm::value_ptr;
@@ -11,8 +12,9 @@ ShaderProgram::ShaderProgram(std::string vshaderPath, std::string fshaderPath)
 
 ShaderProgram::ShaderProgram(std::string shaderName)
 {
-	std::string vshaderPath = "../Res/Shader/" + shaderName + ".vs";
-	std::string fshadePath = "../Res/Shader/" + shaderName + ".fs";
+	auto res_path = getResourceDir();
+	std::string vshaderPath = res_path + "/Shader/" + shaderName + ".vs";
+	std::string fshadePath =  res_path + "/Shader/" + shaderName + ".fs";
 	createProgram(vshaderPath, fshadePath);
 }
 ShaderProgram::~ShaderProgram()
@@ -123,7 +125,7 @@ void ShaderProgram::loadSource(const std::string& path, std::string& src)
 	if (!ifs.is_open()) {
 		char buff[1024];
 		strerror_s(buff,errno);
-		std::cerr << "Open file fail: " << buff<<std::endl;
+		std::cerr << "Open file fail: " << buff<<" "<<path<<std::endl;
 		return;
 	}
 	ifs.seekg(0, ifs.end);

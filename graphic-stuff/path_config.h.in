@@ -1,0 +1,14 @@
+#ifndef PATH_CONFIG_H
+#define PATH_CONFIG_H
+#include <string>
+
+// define your version_libinterface
+#define RESOURCE_PATH @RESOURCE_DIR@
+
+// alternatively you could add your global method getLibInterfaceVersion here
+inline std::string getResourceDir()
+{
+    return "@RESOURCE_DIR@";
+}
+
+#endif // PATH_CONFIG_H

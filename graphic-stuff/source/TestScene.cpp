@@ -34,8 +34,6 @@ bool TestScene::init()
 	ib->setData(static_cast<void*>(indices), sizeof(indices), sizeof(indices) / sizeof(indices[0]));
 	vaTri->addIndexBuffer(ib);
 	
-	
-	
 	m_meshCube = ScopedPtr<Mesh>(ObjLoader("../Res/Models/cube_tex.obj").toMesh());
 
 	m_vaScreenQuad = ScopedPtr<VertexArray>( VertexArray::Create());
@@ -50,7 +48,6 @@ bool TestScene::init()
 	auto ibsq = IndexBuffer::Create();
 	ibsq->setData(static_cast<void*>(quadIndices), sizeof(quadIndices), sizeof(quadIndices) / sizeof(quadIndices[0]));
 	m_vaScreenQuad->addIndexBuffer(ibsq);
-
 	
 	m_material = CreateScopedPtr<Material>(new ShaderProgram("FlatColorShader"));
 	

@@ -2,6 +2,7 @@
 #include "ObjLoader.h"
 #include "Logger.h"
 #include <sstream>
+
 ObjLoader::ObjLoader(std::string path)
 {
 	loadObj(path);
@@ -85,6 +86,7 @@ Mesh* ObjLoader::toMesh()
 			m.addVertex(&m_positions[ind.position - 1], &m_normals[ind.normal - 1]);
 		}
 	}
+
 	std::vector<float> vertexData;
 	for (size_t i = 0; i < m.positons.size(); i++) {
 		// Position
@@ -98,6 +100,8 @@ Mesh* ObjLoader::toMesh()
 		vertexData.push_back(m.normals[i].z);
 
 	}
+	if (vertexData.size() == 0)
+		return nullptr;
 	auto indexData = m.indices;
 	auto va = VertexArray::Create();
 
