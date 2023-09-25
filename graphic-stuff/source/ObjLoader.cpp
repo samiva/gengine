@@ -1,17 +1,20 @@
 #include "pch.h"
 #include "ObjLoader.h"
 #include "Logger.h"
+#include "bufferhelpers.h"
 #include <sstream>
-
+#include "../generated/path_config.h"
 ObjLoader::ObjLoader(std::string path)
 {
-	loadObj(path);
+	std::string filePath(getResourceDir() + path);
+	std::cout << filePath << "\n";
+	loadObj(filePath);
 }
 
 void ObjLoader::loadObj(std::string path)
 {
 	std::ifstream stream(path, std::ios_base::binary);
-	if(!stream.fail())
+	if (!stream.fail())
 	{
 
 		std::string line;
@@ -174,7 +177,7 @@ void ObjLoader::parseFaceIndices(std::string line)
 			else {
 				ss.ignore(1);
 			}
-			
+
 			ss.ignore(1);
 			ss >> vertInd.normal;
 			m_indices.push_back(vertInd);

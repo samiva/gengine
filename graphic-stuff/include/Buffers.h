@@ -42,13 +42,7 @@ private:
 
 };
 
-template<typename T> 
-void addLayoutMember(Layout &layout, int count);
 
-template<>
-void addLayoutMember<float>(Layout &layout, int count) {
-	layout.addMember(sizeof(float), count, GL_FLOAT);
-}
 
 class VertexBuffer {
 public:

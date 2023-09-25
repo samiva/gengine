@@ -361,3 +361,4 @@ CMakeFiles/
 **/CMakeFiles/
 
 deps/
+!Res/Models/*.obj

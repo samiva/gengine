@@ -21,34 +21,8 @@ bool TestScene::init()
 	unsigned int quadIndices[] = {0,1,2,
 								  0,2,3};
 
-	auto vaTri = VertexArray::Create();
+	m_meshCube = ScopedPtr<Mesh>(ObjLoader("/Models/cube.obj").toMesh());
 
-	auto vb = VertexBuffer::Create();
-	vb->setData(static_cast<void*>(triangle), sizeof(triangle));
-	Layout layout;
-	addLayoutMember<float>(layout, 3);
-	addLayoutMember<float>(layout, 3);
-	vb->setLayout(layout);
-	vaTri->addVertexBuffer(vb);
-	auto ib = IndexBuffer::Create();
-	ib->setData(static_cast<void*>(indices), sizeof(indices), sizeof(indices) / sizeof(indices[0]));
-	vaTri->addIndexBuffer(ib);
-	
-	m_meshCube = ScopedPtr<Mesh>(ObjLoader("../Res/Models/cube_tex.obj").toMesh());
-
-	m_vaScreenQuad = ScopedPtr<VertexArray>( VertexArray::Create());
-	auto vbsq = VertexBuffer::Create();
-
-	vbsq->setData(static_cast<void*>(quad), sizeof(quad));
-	Layout l;
-	addLayoutMember<float>(l, 3);
-	addLayoutMember<float>(l, 3);
-	vbsq->setLayout(l);
-
-	auto ibsq = IndexBuffer::Create();
-	ibsq->setData(static_cast<void*>(quadIndices), sizeof(quadIndices), sizeof(quadIndices) / sizeof(quadIndices[0]));
-	m_vaScreenQuad->addIndexBuffer(ibsq);
-	
 	m_material = CreateScopedPtr<Material>(new ShaderProgram("FlatColorShader"));
 	
 	m_material->setValue("U_color", glm::vec4(1.0f,0.1f,0.1f,1.0f));
